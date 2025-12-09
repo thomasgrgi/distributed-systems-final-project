@@ -6,5 +6,5 @@ r = get_redis_connection()
 
 @app.get("/next")
 def next_ticket():
-    ticket = r.lpop("queue")
+    ticket = r.rpoplpush("queue", "processing")
     return {"ticket_id": ticket}
