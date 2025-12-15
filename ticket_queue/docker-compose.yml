@@ -31,9 +31,30 @@ services:
       context: .
       dockerfile: worker.Dockerfile
     container_name: worker1
+    environment:
+      - WORKER_ID=worker1
+    depends_on:
+      - redis
+      - queue_manager
+
 
   worker2:
     build:
       context: .
       dockerfile: worker.Dockerfile
     container_name: worker2
+    environment:
+      - WORKER_ID=worker2
+    depends_on:
+      - redis
+      - queue_manager
+
+  monitoring:
+    build: 
+      context: .
+      dockerfile: monitoring.Dockerfile
+    container_name: monitoring
+    ports:
+      - "8002:8002"
+    depends_on:
+      - redis

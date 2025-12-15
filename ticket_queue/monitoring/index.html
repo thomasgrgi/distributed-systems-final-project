@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ticket System Monitoring</title>
+  <script src="/static/dashboard.js"></script>
+</head>
+<body>
+  <h1>🎟 Ticket System Dashboard</h1>
+
+  <h2>🚦 Load Generator</h2>
+
+<label>
+  People joining per minute:
+  <input type="number" id="rate" value="10" min="1">
+</label>
+
+<button onclick="startLoad()">Start</button>
+<button onclick="stopLoad()">Stop</button>
+
+<p id="loadStatus"></p>
+
+  <h2>Gateway</h2>
+  <p>Join requests: <span id="requests">0</span></p>
+
+  <h2>Queue</h2>
+  <ul id="queue"></ul>
+
+  <h2>Workers</h2>
+  <ul id="workers"></ul>
+
+</body>
+</html>

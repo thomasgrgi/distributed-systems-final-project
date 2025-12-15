@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import requests
 import uuid
 from utils.redis_client import get_redis_connection
 
@@ -7,14 +8,18 @@ r = get_redis_connection()
 
 @app.post("/join_queue")
 def join_queue():
-    ticket_id = str(uuid.uuid4())
-    r.rpush("queue", ticket_id)
-    position = r.llen("queue")
+    r.incr("stats:join_requests")
+
+    response = requests.post("http://queue_manager:8001/enqueue")
+    return response.json()
+    # ticket_id = str(uuid.uuid4())
+    # r.rpush("queue", ticket_id)
+    # position = r.llen("queue")
     
-    return {
-        "ticket_id": ticket_id,
-        "position": position
-    }
+    # return {
+    #     "ticket_id": ticket_id,
+    #     "position": position
+    # }
 
 @app.get("/position/{ticket_id}")
 def get_position(ticket_id: str):
