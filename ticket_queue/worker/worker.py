@@ -2,10 +2,10 @@ import time
 import requests
 import redis
 
-QUEUE_MANAGER_URL = "http://localhost:8001/next"
+QUEUE_MANAGER_URL = "http://queue_manager:8001/next"
 
 # Initialize Redis connection
-r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+r = redis.Redis(host='redis', port=6379, db=0, decode_responses=True)
 
 def process_ticket(ticket_id):
     print(f"[WORKER] Processing ticket {ticket_id}")
